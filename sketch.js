@@ -94,7 +94,7 @@ class Doodler {
         this.x + this.width >= platform.x &&
         this.x <= platform.x + platform.width
       ) {
-        this.velocity = -10;
+        this.velocity = -15;  // 增加跳躍高度
       }
     }
 
@@ -119,7 +119,7 @@ class Doodler {
   }
 
   jump() {
-    this.velocity = -10;
+    this.velocity = -15;  // 增加跳躍高度
   }
 }
 
@@ -136,7 +136,7 @@ class Platform {
   }
 
   update() {
-    this.y += 1;
+    this.y += 0.5;  // 減慢平台下降速度
     if (this.y > height) {
       this.y = 0;
       this.x = random(width);
