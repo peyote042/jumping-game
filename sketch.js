@@ -13,7 +13,7 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(400, 600);
+  createCanvas(windowWidth, windowHeight);  // 使用 windowWidth 和 windowHeight
   doodler = new Doodler();
   for (let i = 0; i < platformCount; i++) {
     platforms.push(new Platform(random(width), i * (height / platformCount)));
@@ -38,10 +38,12 @@ function keyPressed() {
 }
 
 function touchStarted() {
-  if (touchX < width / 2) {
-    doodler.moveLeft();
-  } else {
-    doodler.moveRight();
+  if (touches.length > 0) {
+    if (touches[0].x < width / 2) {
+      doodler.moveLeft();
+    } else {
+      doodler.moveRight();
+    }
   }
   return false;
 }
@@ -49,6 +51,10 @@ function touchStarted() {
 function touchEnded() {
   doodler.stop();
   return false;
+}
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
 }
 
 class Doodler {
