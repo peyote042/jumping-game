@@ -31,6 +31,26 @@ function draw() {
   }
 }
 
+function keyPressed() {
+  if (key == ' ') {
+    doodler.jump();
+  }
+}
+
+function touchStarted() {
+  if (touchX < width / 2) {
+    doodler.moveLeft();
+  } else {
+    doodler.moveRight();
+  }
+  return false;
+}
+
+function touchEnded() {
+  doodler.stop();
+  return false;
+}
+
 class Doodler {
   constructor() {
     this.x = width / 2;
@@ -39,6 +59,7 @@ class Doodler {
     this.height = 50;
     this.velocity = 0;
     this.direction = 'left'; // 記錄角色的方向
+    this.speed = 5;
   }
 
   show() {
@@ -54,12 +75,10 @@ class Doodler {
     this.y += this.velocity;
 
     if (keyIsDown(LEFT_ARROW)) {
-      this.x -= 5;
-      this.direction = 'left'; // 更新方向
+      this.moveLeft();
     }
     if (keyIsDown(RIGHT_ARROW)) {
-      this.x += 5;
-      this.direction = 'right'; // 更新方向
+      this.moveRight();
     }
 
     for (let platform of platforms) {
@@ -77,6 +96,24 @@ class Doodler {
       this.y = height - this.height;
       this.velocity = 0;
     }
+  }
+
+  moveLeft() {
+    this.x -= this.speed;
+    this.direction = 'left'; // 更新方向
+  }
+
+  moveRight() {
+    this.x += this.speed;
+    this.direction = 'right'; // 更新方向
+  }
+
+  stop() {
+    // 停止移動
+  }
+
+  jump() {
+    this.velocity = -10;
   }
 }
 
